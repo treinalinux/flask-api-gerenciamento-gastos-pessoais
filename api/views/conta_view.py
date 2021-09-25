@@ -7,6 +7,11 @@ from api import api
 
 
 class ContaList(Resource):
+    def get(self):
+        contas = conta_service.listar_contas()
+        cs = conta_schema.ContaSchema(many=True)
+        return make_response(cs.jsonify(contas), 200)
+
     def post(self):
         cs = conta_schema.ContaSchema()
         validate = cs.validate(request.json)
